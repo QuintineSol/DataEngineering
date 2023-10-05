@@ -77,14 +77,32 @@ pip install -r requirements.txt
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-```
 
 Please verify if the updated content meets your requirements.
 
-
-
-## INSTRUCTIONS ON SETTING UP THE PROJECT
+## SET UP THE PROJECT
 STEP 1: start up your VM instance
-STEP 2: git clone https://github.com/QuintineSol/DataEngineering.git
-STEP 3: 
+STEP 2: open the SSH terminal
+STEP 3: enter the following command
+```bash
+git clone https://github.com/QuintineSol/DataEngineering.git
+```
 
+## TEST THE PREDICTION-UI
+STEP 1: enter the following commands:
+```bash
+cd DataEngineering/prediction-ui
+python3 -m venv .insurance-ui.env
+source .insurance-ui.env/bin/activate
+pip install -r requirements.txt 
+python3 app.py 
+```
+STEP 2: browse http://VM_external_ip:5000/checkinsurance
+Note: don't forget to replace "VM_external_ip" with the correct external IP of your VM instance.
+This IP address can be found where you started your VM instance.
+
+## TEST THE PREDICTION-API
+STEP 1: to be continued.....
+```
+# TODO: finish this!!!!
+```
