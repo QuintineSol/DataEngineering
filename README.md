@@ -80,3 +80,11 @@ This project is licensed under the [MIT License](LICENSE).
 ```
 
 Please verify if the updated content meets your requirements.
+
+
+
+## INSTRUCTIONS ON SETTING UP THE PROJECT
+STEP 1: start up your VM instance
+STEP 2: git clone https://github.com/QuintineSol/DataEngineering.git
+STEP 3: 
+
