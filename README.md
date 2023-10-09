@@ -105,10 +105,13 @@ source .insurance-api.env/bin/activate
 pip install -r requirements.txt 
 python3 app.py 
 ```
-STEP 3: browse http://VM_external_ip:5000/checkinsurance
+STEP 3: browse http://VM_external_ip:5001/checkinsurance
+
 Note: don't forget to replace "VM_external_ip" with the correct external IP of your VM instance.
 This IP address can be found where you started your VM instance.
+
 STEP 4: enter some values 
+
 STEP 5: press submit
 
 CHECK: you should be redirected to another page containing the output of the model "The insurance amount is ...."
