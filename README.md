@@ -88,8 +88,8 @@ STEP 3: enter the following command
 git clone https://github.com/QuintineSol/DataEngineering.git
 ```
 
-## TEST THE PREDICTION-UI
-STEP 1: enter the following commands:
+## TEST THE BASIC PREDICTION-UI & PREDICTION-API
+STEP 1: start the prediction-ui by entering the following commands
 ```bash
 cd DataEngineering/prediction-ui
 python3 -m venv .insurance-ui.env
@@ -97,12 +97,18 @@ source .insurance-ui.env/bin/activate
 pip install -r requirements.txt 
 python3 app.py 
 ```
-STEP 2: browse http://VM_external_ip:5000/checkinsurance
+STEP 2: start the prediction-api by entering the following commands
+```bash
+cd DataEngineering/prediction-api
+python3 -m venv .insurance-api.env
+source .insurance-api.env/bin/activate
+pip install -r requirements.txt 
+python3 app.py 
+```
+STEP 3: browse http://VM_external_ip:5000/checkinsurance
 Note: don't forget to replace "VM_external_ip" with the correct external IP of your VM instance.
 This IP address can be found where you started your VM instance.
+STEP 4: enter some values 
+STEP 5: press submit
 
-## TEST THE PREDICTION-API
-STEP 1: to be continued.....
-```
-# TODO: finish this!!!!
-```
+CHECK: you should be redirected to another page containing the output of the model "The insurance amount is ...."
