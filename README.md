@@ -87,4 +87,3 @@ Please verify if the updated content meets your requirements.
 STEP 1: start up your VM instance
 STEP 2: git clone https://github.com/QuintineSol/DataEngineering.git
 STEP 3: 
-
