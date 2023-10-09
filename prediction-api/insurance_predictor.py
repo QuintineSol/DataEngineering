@@ -23,10 +23,11 @@ class InsurancePredictor:
                 print("MODEL_REPO is undefined")
                 self.model = load_model('insurance_pred')
 
-        df = pd.read_json(StringIO(json.dumps(prediction_input)), orient='records') # TODO: change to csv
+        df = pd.read_json(StringIO(json.dumps(prediction_input)), orient='records')
         y_pred = self.model.predict(df)
-        logging.info(y_pred[0]) # TODO: change according to output of our model
-        status = (y_pred[0] > 0.5)
-        logging.info(type(status[0]))
+        logging.info(y_pred[0])
+        # status = (y_pred[0] > 0.5)
+        # logging.info(type(status[0]))
         # return the prediction outcome as a json message. 200 is HTTP status code 200, indicating successful completion
-        return jsonify({'result': str(status[0])}), 200
+        # return jsonify({'result': str(status[0])}), 200
+        return jsonify({'result': str(y_pred[0])}), 200

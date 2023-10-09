@@ -95,7 +95,7 @@ cd DataEngineering/prediction-ui
 python3 -m venv .insurance-ui.env
 source .insurance-ui.env/bin/activate
 pip install -r requirements.txt 
-python3 app.py 
+python3 app.py 
 ```
 STEP 2: browse http://VM_external_ip:5000/checkinsurance
 Note: don't forget to replace "VM_external_ip" with the correct external IP of your VM instance.
