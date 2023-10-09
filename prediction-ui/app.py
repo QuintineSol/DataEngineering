@@ -20,11 +20,11 @@ def check_insurance():
         prediction_input = [ # getting input from the HTLM form
             {
                 "age": int(request.form.get("age")),  
-                "sex": int(request.form.get("sex")),  
-                "bmi": int(request.form.get("bmi")),
+                "sex": str(request.form.get("sex")),  
+                "bmi": float(request.form.get("bmi")),
                 "children": int(request.form.get("children")),
-                "smoker": int(request.form.get("smoker")),
-                "region": int(request.form.get("region"))
+                "smoker": str(request.form.get("smoker")),
+                "region": str(request.form.get("region"))
             }
         ]
 
