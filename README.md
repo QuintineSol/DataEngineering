@@ -149,7 +149,7 @@ On the left panel, go to 'Source Control'.
 Press the button 'Sync Changes'.
 
 STEP 6: merge your branch with the main branch
-Go to https://github.com/QuintineSol/DataEngineering/<branch_name>.
+Go to https://github.com/QuintineSol/DataEngineering/tree/<branch_name>.
 Option 1: there is a message containing '<branch_name> had recent pushes'.
 - Click on 'Compare & pull request'.
 Option 2: there is no message.
