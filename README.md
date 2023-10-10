@@ -161,7 +161,7 @@ STEP 8: merge your branch with the main branch
    - Click on 'Compare & pull request'.
 - Option 2: there is no message.
    - At the top go to 'Pull requests'.
-   - Click 'New pull request'.
+   - Click on 'New pull request'.
    - Select your branch.
 - Click 'Create pull request'.
 - If there are merge conflicts, resolve them.
