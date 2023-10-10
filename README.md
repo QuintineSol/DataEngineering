@@ -158,11 +158,15 @@ Option 2: there is no message.
 - Select your branch.
 Click 'Create pull request'.
 If there are merge conflicts, resolve them.
-Click on 'Merge pull request.
+Click on 'Merge pull request'.
 Click on 'Confirm merge'.
 
-STEP 7: delete your local and remote branch
+STEP 7: delete your local branch
 ```bash
+git checkout main
 git branch -d <branch_name>
-git push --delete <branch_name>
 ```
+
+STEP 8: delete your remote branch
+Go to https://github.com/QuintineSol/DataEngineering/branches.
+Click on the trashcan icon to the right of your branch name.
