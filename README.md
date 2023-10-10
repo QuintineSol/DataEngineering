@@ -149,20 +149,27 @@ On the left panel, go to 'Source Control'.
 Press the button 'Sync Changes'.
 
 STEP 6: merge your branch with the main branch
-Go to https://github.com/QuintineSol/DataEngineering/tree/<branch_name>.
+Go to https://github.com/QuintineSol/DataEngineering.
 Option 1: there is a message containing '<branch_name> had recent pushes'.
 - Click on 'Compare & pull request'.
 Option 2: there is no message.
+- Navigate to your branch.
 - At the top go to 'Pull requests'.
 - Click 'New pull request'.
 - Select your branch.
 Click 'Create pull request'.
 If there are merge conflicts, resolve them.
-Click on 'Merge pull request.
+Click on 'Merge pull request'.
 Click on 'Confirm merge'.
 
-STEP 7: delete your local and remote branch
+STEP 7: delete your local branch
 ```bash
+git checkout main
 git branch -d <branch_name>
-git push --delete <branch_name>
 ```
+
+STEP 8: delete your remote branch
+Go to https://github.com/QuintineSol/DataEngineering.
+Click on 'main' where you can switch branches.
+Click on 'View all branches'.
+Click on the trashcan icon to the right of your branch name.
