@@ -142,17 +142,21 @@ STEP 5: commit your code
 On the left panel, go to 'Source Control'.
 Press the button 'Commit'.
 Enter a commit message (describing the changes you made).
-Accept the message at the top right.
+Accept the commit message at the top right.
 
 STEP 6: push the changes in your local branch to the remote repository
 On the left panel, go to 'Source Control'.
 Press the button 'Sync Changes'.
 
 STEP 6: merge your branch with the main branch
-Go to https://github.com/QuintineSol/DataEngineering/tree/main.
-There should be a message containing '<branch_name> had recent pushes'.
-Click on 'Compare & pull request'.
-Click on 'Create pull request'.
+Go to https://github.com/QuintineSol/DataEngineering/tree/<branch_name>.
+Option 1: there is a message containing '<branch_name> had recent pushes'.
+- Click on 'Compare & pull request'.
+Option 2: there is no message.
+- At the top go to 'Pull requests'.
+- Click 'New pull request'.
+- Select your branch.
+Click 'Create pull request'.
 If there are merge conflicts, resolve them.
 Click on 'Merge pull request.
 Click on 'Confirm merge'.
