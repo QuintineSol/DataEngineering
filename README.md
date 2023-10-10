@@ -141,6 +141,8 @@ STEP 4: switch to your newly created branch
 git checkout <branch_name>
 ```
 
+STEP 5, 6 & 7 can be repeated multiple times.
+
 STEP 5: make your code (this happens on your local branch)
 
 STEP 6: commit your code
