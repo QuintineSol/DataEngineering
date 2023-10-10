@@ -115,3 +115,40 @@ STEP 4: enter some values
 STEP 5: press submit
 
 CHECK: you should be redirected to another page containing the output of the model "The insurance amount is ...."
+
+## WORKING WITH GIT
+When working on a new feature, please follow the guidelines below.
+Each of these commands should be entered in a terminal within Visual Studio Code.
+A new terminal can be opened under Terminal > New Terminal.
+
+STEP 1: create a local branch (give it a sensible name)
+```bash
+git branch <branch_name>
+```
+
+STEP 2: push the local branch to the remote repository
+```bash
+git push origin -u <branch_name>
+```
+
+STEP 3: switch to your newly created branch
+```bash
+git checkout <branch_name>
+```
+
+STEP 4: make your code (this happens on your local branch)
+
+STEP 5: commit your code to your branch in the remote repository
+On the left panel, go to 'Source Control'.
+Press the button 'Commit'.
+
+STEP 6: push the changes in your remote branch to the main branch
+```bash
+git push
+```
+
+STEP 7: delete your local and remote branch
+```bash
+git branch -d <branch_name>
+git push --delete <branch_name>
+```
