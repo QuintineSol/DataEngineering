@@ -121,34 +121,39 @@ When working on a new feature, please follow the guidelines below.
 Each of these commands should be entered in a terminal within Visual Studio Code.
 A new terminal can be opened under Terminal > New Terminal.
 
-STEP 1: create a local branch (give it a sensible name)
+STEP 1: get the newest version of the project
+```bash
+git pull
+```
+
+STEP 2: create a local branch (give it a sensible name)
 ```bash
 git branch <branch_name>
 ```
 
-STEP 2: push the local branch to the remote repository
+STEP 3: push the local branch to the remote repository
 ```bash
 git push origin -u <branch_name>
 ```
 
-STEP 3: switch to your newly created branch
+STEP 4: switch to your newly created branch
 ```bash
 git checkout <branch_name>
 ```
 
-STEP 4: make your code (this happens on your local branch)
+STEP 5: make your code (this happens on your local branch)
 
-STEP 5: commit your code
+STEP 6: commit your code
 On the left panel, go to 'Source Control'.
 Press the button 'Commit'.
 Enter a commit message (describing the changes you made).
 Accept the commit message at the top right.
 
-STEP 6: push the changes in your local branch to the remote repository
+STEP 7: push the changes in your local branch to the remote repository
 On the left panel, go to 'Source Control'.
 Press the button 'Sync Changes'.
 
-STEP 6: merge your branch with the main branch
+STEP 8: merge your branch with the main branch
 Go to https://github.com/QuintineSol/DataEngineering/tree/<branch_name>.
 Option 1: there is a message containing '<branch_name> had recent pushes'.
 - Click on 'Compare & pull request'.
@@ -161,10 +166,10 @@ If there are merge conflicts, resolve them.
 Click on 'Merge pull request'.
 Click on 'Confirm merge'.
 
-STEP 7: delete your remote branch
+STEP 9: delete your remote branch
 Click on 'Delete branch'.
 
-STEP 8: delete your local branch
+STEP 10: delete your local branch
 ```bash
 git checkout main
 git branch -d <branch_name>
