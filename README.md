@@ -122,7 +122,7 @@ sudo docker images
 ```
 should display the newly created docker containers
 
-## TEST THE PREDICTION-UI & PREDICTION-API
+## TEST THE PREDICTION-UI, PREDICTION-API & TRAINING-API
 STEP 1: start the prediction-ui container
 ```bash
 sudo docker run -p 5001:5000 -e PREDICTOR_API=http://insurance-api:5000/insurance_predictor -d --name=insurance-ui <username on Docker hub>/insurance-ui:0.0.1
