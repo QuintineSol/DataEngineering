@@ -108,6 +108,14 @@ cd ../prediction-api
 sudo docker build -t <username on Docker hub>/insurance-api:0.0.1 .
 ```
 
+STEP 3: create a container for training-api
+```bash
+cd ../training-api
+sudo docker build -t <username on Docker hub>/insurance-train-api:0.0.1 .
+```
+
+STEP 4: create a folder in the home directory of the VM called "models"
+
 CHECK: entering the following commands
 ```bash
 sudo docker images
@@ -122,6 +130,11 @@ sudo docker run -p 5001:5000 -e PREDICTOR_API=http://insurance-api:5000/insuranc
 STEP 2: start the prediction-api container
 ```bash
 sudo docker run -p 5000:5000 -d --name=insurance-api <username on Docker hub>/insurance-api:0.0.1
+```
+
+STEP 3: start the training-api container
+```bash
+sudo docker run -p 5002:5000 -v <your-host-path>/models:/usr/trainapp/models -d --name=insurance-train-api <username on Docker hub>/insurance-train-api:0.0.1
 ```
 
 STEP 3: create a virtual container network between the containers
