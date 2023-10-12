@@ -122,7 +122,7 @@ sudo docker images
 ```
 should display the newly created docker containers
 
-## TEST THE PREDICTION-UI, PREDICTION-API & TRAINING-API
+## TEST THE PREDICTION-UI, PREDICTION-API
 STEP 1: start the prediction-ui container
 ```bash
 sudo docker run -p 5001:5000 -e PREDICTOR_API=http://insurance-api:5000/insurance_predictor -d --name=insurance-ui <username on Docker hub>/insurance-ui:0.0.1
@@ -132,17 +132,32 @@ STEP 2: start the prediction-api container
 sudo docker run -p 5000:5000 -d --name=insurance-api <username on Docker hub>/insurance-api:0.0.1
 ```
 
-STEP 3: start the training-api container
-```bash
-sudo docker run -p 5002:5000 -v <your-host-path>/models:/usr/trainapp/models -d --name=insurance-train-api <username on Docker hub>/insurance-train-api:0.0.1
-```
-
 STEP 3: create a virtual container network between the containers
 ```bash
 sudo docker network create insurance-app-network
 sudo docker network connect insurance-app-network insurance-api
 sudo docker network connect insurance-app-network insurance-ui
 ```
+
+## TEST THE TRAINING-API
+STEP 1: start the training-api container
+```bash
+sudo docker run -p 5002:5000 -v <your-host-path>/models:/usr/trainapp/models -d --name=insurance-train-api <username on Docker hub>/insurance-train-api:0.0.1
+```
+Note: you can find <your-host-path> by entering the command
+```bash
+pwd
+```
+
+STEP 2: open Insomnia
+
+STEP 3: copy the training data from the github repository under the folder called 'data'
+
+STEP 4: paste the data into Insomnia
+
+STEP 5: change the URL to http://VM_external_ip:5002/training-api/model
+
+STEP 6: click on 'Send'
 
 ## TEST THE BASIC PREDICTION-UI & PREDICTION-API
 STEP 1: start the prediction-ui by entering the following commands
