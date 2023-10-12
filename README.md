@@ -82,10 +82,53 @@ Please verify if the updated content meets your requirements.
 
 ## SET UP THE PROJECT
 STEP 1: start up your VM instance
+
 STEP 2: open the SSH terminal
+
 STEP 3: enter the following command
 ```bash
 git clone https://github.com/QuintineSol/DataEngineering.git
+```
+
+IMPORTANT: each time you start your VM and want to run the project, it is important to enter the command
+```bash
+git pull
+```
+to get the latest version of the project from the remote repository.
+
+## CREATE THE DOCKER CONTAINERS
+STEP 1: create a container for prediction-ui
+```bash
+cd DataEngineering/prediction-ui
+sudo docker build -t <username on Docker hub>/insurance-ui:0.0.1 .
+```
+STEP 2: create a container for prediction-api
+```bash
+cd ../prediction-api
+sudo docker build -t <username on Docker hub>/insurance-api:0.0.1 .
+```
+
+CHECK: entering the following commands
+```bash
+sudo docker images
+```
+should display the newly created docker containers
+
+## TEST THE PREDICTION-UI & PREDICTION-API
+STEP 1: start the prediction-ui container
+```bash
+sudo docker run -p 5001:5000 -e PREDICTOR_API=http://insurance-api:5000/insurance_predictor -d --name=insurance-ui <username on Docker hub>/insurance-ui:0.0.1
+```
+STEP 2: start the prediction-api container
+```bash
+sudo docker run -p 5000:5000 -d --name=insurance-api <username on Docker hub>/insurance-api:0.0.1
+```
+
+STEP 3: create a virtual container network between the containers
+```bash
+sudo docker network create insurance-app-network
+sudo docker network connect insurance-app-network insurance-api
+sudo docker network connect insurance-app-network insurance-ui
 ```
 
 ## TEST THE BASIC PREDICTION-UI & PREDICTION-API
