@@ -14,8 +14,8 @@ app.config["DEBUG"] = True
 def train_models():
     # the training input data in the message body as a JSON payload
     training_input = request.get_json()
-    df = pd.read_json(json.dumps(training_input), orient='records') #TODO: check our input orientation
-    resp = model_trainer.train(df.values)
+    df = pd.read_json(json.dumps(training_input), orient='records') 
+    resp = model_trainer.train(df.values) #TODO: we have string values
     return resp
 
 
