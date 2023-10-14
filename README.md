@@ -110,7 +110,14 @@ sudo docker build -t <username on Docker hub>/insurance-api:0.0.1 .
 sudo docker run -p 5000:5000 -d --name=insurance-api <username on Docker hub>/insurance-api:0.0.1
 ```
 
-STEP 3: create a container for training-api
+STEP 3: create a virtual container network between the containers
+```bash
+sudo docker network create insurance-app-network
+sudo docker network connect insurance-app-network insurance-api
+sudo docker network connect insurance-app-network insurance-ui
+```
+
+STEP 4: create a container for training-api
 ```bash
 cd ../training-api
 sudo docker build -t <username on Docker hub>/insurance-train-api:0.0.1 .
@@ -124,13 +131,6 @@ pwd
 Please don't forget to go back to the training-api folder when creating the training-api container by entering the following commands
 ```bash
 cd DataEngineerg/training-api
-```
-
-STEP 4: create a virtual container network between the containers
-```bash
-sudo docker network create insurance-app-network
-sudo docker network connect insurance-app-network insurance-api
-sudo docker network connect insurance-app-network insurance-ui
 ```
 
 STEP 5: create a folder in the home directory of the VM called "models"
