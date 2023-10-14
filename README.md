@@ -116,9 +116,14 @@ cd ../training-api
 sudo docker build -t <username on Docker hub>/insurance-train-api:0.0.1 .
 sudo docker run -p 5002:5000 -v <your-host-path>/models:/usr/trainapp/models -d --name=insurance-train-api <username on Docker hub>/insurance-train-api:0.0.1
 ```
-Note: you can find <your-host-path> by entering the command
+Note: you can find <your-host-path> by entering the followng commands
 ```bash
+cd ../..
 pwd
+```
+Please don't forget to go back to the training-api folder when creating the training-api container by entering the following commands
+```bash
+cd DataEngineerg/training-api
 ```
 
 STEP 4: create a virtual container network between the containers
@@ -134,7 +139,11 @@ CHECK: entering the following commands
 ```bash
 sudo docker images
 ```
-should display the newly created docker containers
+should display the newly created docker images
+```bash
+sudo docker ps -a
+```
+should display the three running containers
 
 ## TEST THE PREDICTON-UI & PREDICTION-API
 STEP 1: start the containers
