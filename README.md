@@ -96,25 +96,39 @@ git pull
 ```
 to get the latest version of the project from the remote repository.
 
-## CREATE THE DOCKER CONTAINERS
+## SET UP THE DOCKER CONTAINERS
 STEP 1: create a container for prediction-ui
 ```bash
 cd DataEngineering/prediction-ui
 sudo docker build -t <username on Docker hub>/insurance-ui:0.0.1 .
+sudo docker run -p 5001:5000 -e PREDICTOR_API=http://insurance-api:5000/insurance_predictor -d --name=insurance-ui <username on Docker hub>/insurance-ui:0.0.1
 ```
 STEP 2: create a container for prediction-api
 ```bash
 cd ../prediction-api
 sudo docker build -t <username on Docker hub>/insurance-api:0.0.1 .
+sudo docker run -p 5000:5000 -d --name=insurance-api <username on Docker hub>/insurance-api:0.0.1
 ```
 
 STEP 3: create a container for training-api
 ```bash
 cd ../training-api
 sudo docker build -t <username on Docker hub>/insurance-train-api:0.0.1 .
+sudo docker run -p 5002:5000 -v <your-host-path>/models:/usr/trainapp/models -d --name=insurance-train-api <username on Docker hub>/insurance-train-api:0.0.1
+```
+Note: you can find <your-host-path> by entering the command
+```bash
+pwd
 ```
 
-STEP 4: create a folder in the home directory of the VM called "models"
+STEP 4: create a virtual container network between the containers
+```bash
+sudo docker network create insurance-app-network
+sudo docker network connect insurance-app-network insurance-api
+sudo docker network connect insurance-app-network insurance-ui
+```
+
+STEP 5: create a folder in the home directory of the VM called "models"
 
 CHECK: entering the following commands
 ```bash
@@ -122,31 +136,28 @@ sudo docker images
 ```
 should display the newly created docker containers
 
-## TEST THE PREDICTION-UI, PREDICTION-API
-STEP 1: start the prediction-ui container
+## TEST THE PREDICTON-UI & PREDICTION-API
+STEP 1: start the containers
 ```bash
-sudo docker run -p 5001:5000 -e PREDICTOR_API=http://insurance-api:5000/insurance_predictor -d --name=insurance-ui <username on Docker hub>/insurance-ui:0.0.1
-```
-STEP 2: start the prediction-api container
-```bash
-sudo docker run -p 5000:5000 -d --name=insurance-api <username on Docker hub>/insurance-api:0.0.1
+sudo docker start insurance-ui
+sudo docker start insurance-api
 ```
 
-STEP 3: create a virtual container network between the containers
-```bash
-sudo docker network create insurance-app-network
-sudo docker network connect insurance-app-network insurance-api
-sudo docker network connect insurance-app-network insurance-ui
-```
+STEP 2: browse http://VM_external_ip:5001/checkinsurance
+
+Note: don't forget to replace "VM_external_ip" with the correct external IP of your VM instance.
+This IP address can be found where you started your VM instance.
+
+STEP 4: enter some values 
+
+STEP 5: press submit
+
+CHECK: you should be redirected to another page containing the output of the model "The insurance amount is ...."
 
 ## TEST THE TRAINING-API
 STEP 1: start the training-api container
 ```bash
-sudo docker run -p 5002:5000 -v <your-host-path>/models:/usr/trainapp/models -d --name=insurance-train-api <username on Docker hub>/insurance-train-api:0.0.1
-```
-Note: you can find <your-host-path> by entering the command
-```bash
-pwd
+sudo docker start insurance-train-api
 ```
 
 STEP 2: open Insomnia
@@ -186,3 +197,26 @@ STEP 4: enter some values
 STEP 5: press submit
 
 CHECK: you should be redirected to another page containing the output of the model "The insurance amount is ...."
+
+Note: due to code changes, this basic testing doesn't work anymore.
+
+## DOCKER CHEATSHEET
+View the log of a container
+```bash
+sudo docker logs <docker_container_name>
+```
+
+View the created container images
+```bash
+sudo docker images
+```
+
+View the running containers
+```bash
+sudo docker ps -a
+```
+
+Delete all containers (including their images and the container network)
+```bash
+sudo docker system prune -a 
+```
