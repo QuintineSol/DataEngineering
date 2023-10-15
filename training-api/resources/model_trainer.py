@@ -17,7 +17,7 @@ def train(dataset):
     model = GradientBoostingRegressor()
     # Fit the model
     model.fit(X_train, Y_train)
-    # Predict values
+    # predict values
     Y_pred = model.predict(X_test)
     # evaluate the model
     scores_1 = metrics.r2_score(Y_test, Y_pred)
@@ -32,9 +32,11 @@ def train(dataset):
     model_repo = os.environ['MODEL_REPO']
     if model_repo:
         file_path = os.path.join(model_repo, "insurance_pred")
-        model.save(file_path)
+        # model.save(file_path)
+        joblib.dump(gr,'insurance_pred')
         logging.info("Saved the model to the location : " + model_repo)
         return jsonify(text_out), 200
     else:
-        model.save("insurance_pred")
+        # model.save("insurance_pred")
+        joblib.dump(gr,'insurance_pred')
         return jsonify({'message': 'The model was saved locally.'}), 200
