@@ -2,7 +2,6 @@ import logging
 import os
 
 from flask import jsonify
-from keras.layers import Dense
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
@@ -28,16 +27,13 @@ def train(dataset):
         "Mean absolute error": scores_2,
     }
     logging.info(text_out)
-    print(text_out)
     # Saving model in a given location provided as an env. variable
     model_repo = os.environ['MODEL_REPO']
     if model_repo:
         file_path = os.path.join(model_repo, "insurance_pred")
-        # model.save(file_path)
         joblib.dump(model, file_path)
         logging.info("Saved the model to the location : " + model_repo)
         return jsonify(text_out), 200
     else:
-        # model.save("insurance_pred")
-        joblib.dump(gr,'insurance_pred')
+        joblib.dump(model, file_path)
         return jsonify({'message': 'The model was saved locally.'}), 200
