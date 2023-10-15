@@ -6,6 +6,7 @@ from keras.layers import Dense
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
+import joblib
 
 
 def train(dataset):
@@ -33,7 +34,7 @@ def train(dataset):
     if model_repo:
         file_path = os.path.join(model_repo, "insurance_pred")
         # model.save(file_path)
-        joblib.dump(gr,'insurance_pred')
+        joblib.dump(model, file_path)
         logging.info("Saved the model to the location : " + model_repo)
         return jsonify(text_out), 200
     else:

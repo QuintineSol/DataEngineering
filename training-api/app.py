@@ -3,7 +3,6 @@ import os
 
 import pandas as pd
 from flask import Flask, request
-import joblib
 
 from resources import model_trainer
 
