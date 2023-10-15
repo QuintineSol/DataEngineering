@@ -6,6 +6,7 @@ from flask import jsonify
 from keras.models import load_model
 import logging
 from io import StringIO
+import joblib
 
 
 class InsurancePredictor:
@@ -18,10 +19,12 @@ class InsurancePredictor:
             try:
                 model_repo = os.environ['MODEL_REPO']
                 file_path = os.path.join(model_repo, "insurance_pred")
-                self.model = load_model(file_path)
+                self.model = joblib.load(file_path)
+                # self.model = load_model(file_path)
             except KeyError:
                 print("MODEL_REPO is undefined")
-                self.model = load_model('insurance_pred')
+                self.model = joblib.load('insurance_pred')
+                # self.model = load_model('insurance_pred')
 
         df = pd.read_json(StringIO(json.dumps(prediction_input)), orient='records')
         y_pred = self.model.predict(df)
