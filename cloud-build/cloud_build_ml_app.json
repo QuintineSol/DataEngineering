@@ -51,7 +51,10 @@
           "2",
           "--memory",
           "4G",
-          "--allow-unauthenticated"
+          "--allow-unauthenticated",
+          "--update-env-vars",
+          "PROJECT_ID=$PROJECT_ID,MODEL_REPO=models_de2023_qjsol,MODEL_NAME=insurance_pred",
+          "--no-cpu-throttling"
         ]
       },
       {
