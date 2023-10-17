@@ -179,6 +179,59 @@ STEP 5: change the URL to http://VM_external_ip:5002/training-api/model
 
 STEP 6: click on 'Send'
 
+## CI/CD PIPELINE - SETUP
+STEP 1: go to Artifact Registry.
+
+STEP 2: create a new repository called 'assignment1' and set the region to 'us-central1'.
+
+## CI/CD PIPELINE - MANUAL TRIGGER
+STEP 3: go to Cloud Build > Triggers.
+
+STEP 4: click on 'connect repository'.
+
+STEP 5: select the github repository of this project.
+
+STEP 6: click 'create trigger'.
+- name: 'manual'
+- or in response to: manual invocation
+- select the github repository of this project
+- location: inline
+- open editor and copy the content of cloud_build_ml_app under the folder cloub-build in this project
+- add variable
+   - variable 1: _LOCATION
+   - value 1: us-central1
+   - variable 2: _REPOSITORY
+   - value 2: assignment1
+
+STEP 7: click on 'run' and then on 'run trigger'.
+
+STEP 8: go to 'Cloud Run'.
+
+STEP 9: click on prediction-api and copy the URL at the top.
+
+STEP 10: go back to prediction-ui and click on 'edit'.
+
+STEP 11: under Environment Variables
+- provide as value 1: <prediction-api-url>/insurance_predictor/
+
+STEP 12: click on 'deploy'.
+
+STEP 13: go to prediction-ui and copy the URL at the top.
+
+STEP 14: browse <prediction-ui-url>/checkinsurance
+
+## CI/CD PIPELINE - GITHUB PUSH
+....
+
+## CI/CD PIPELINE - BUCKETS
+
+## SET UP MODEL REPOSITORY GOOGLE CLOUD
+STEP 1: go to Cloud Storage > Buckets.
+
+STEP 2: go to your model bucket (that was already created in the labs)
+
+STEP 3: upload our model (in our github repo under the folder 'models') to this bucket
+
 ## TEST THE BASIC PREDICTION-UI & PREDICTION-API
 STEP 1: start the prediction-ui by entering the following commands
 ```bash
