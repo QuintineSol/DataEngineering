@@ -28,20 +28,13 @@ class InsurancePredictor:
         return jsonify({'message': " the model was downloaded"}), 200
 
     def predict_single_record(self, prediction_input):
-        logging.debug(prediction_input)
+        print(prediction_input)
         if self.model is None:
-            try:
-                self.download_model()
-                # model_repo = os.environ['MODEL_REPO']
-                # file_path = os.path.join(model_repo, "insurance_pred")
-                # self.model = joblib.load(file_path)
-            except KeyError:
-                print("MODEL_REPO is undefined")
-                self.model = joblib.load('insurance_pred')
-                # self.model = load_model('insurance_pred')
+            self.download_model()
 
         df = pd.read_json(StringIO(json.dumps(prediction_input)), orient='records')
+        print(df)
         y_pred = self.model.predict(df)
-        logging.info(y_pred[0])
+        print(y_pred[0])
         # return the prediction outcome as a json message. 200 is HTTP status code 200, indicating successful completion
         return jsonify({'result': str(y_pred[0])}), 200
