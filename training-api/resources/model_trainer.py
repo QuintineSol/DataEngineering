@@ -23,7 +23,7 @@ def train(dataset):
     scores_1 = metrics.r2_score(Y_test, Y_pred)
     scores_2 = metrics.mean_absolute_error(Y_test, Y_pred)
     text_out = {
-        "R^2:": scores_1,
+        "R^2": scores_1,
         "Mean absolute error": scores_2,
     }
     logging.info(text_out)
