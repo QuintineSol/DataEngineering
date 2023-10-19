@@ -23,8 +23,8 @@ class InsurancePredictor:
         client = storage.Client(project=project_id)
         bucket = client.bucket(model_repo)
         blob = bucket.blob(model_name)
-        blob.download_to_filename('local_insurance_pred')
-        self.model = joblib.load('local_insurance_pred')
+        blob.download_to_filename('local_insurance_model')
+        self.model = joblib.load('local_insurance_model')
         return jsonify({'message': " the model was downloaded"}), 200
 
     def predict_single_record(self, prediction_input):
