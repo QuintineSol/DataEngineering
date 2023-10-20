@@ -1,10 +1,10 @@
 ## Machine Learning Model
 
-This project used the following machine learning model: https://github.com/Kajal03g/HealthInsuranceAmountPrediction/blob/main. It predicts health insurance costs based on age, sex, BMI, number of children, smoking habits and region of residence (in America). 
+The project uses the following machine learning model: https://github.com/Kajal03g/HealthInsuranceAmountPrediction/blob/main. It predicts health insurance costs based on age, sex, BMI, number of children, smoking habits and region of residence (in America). 
 
 ## Repository Structure
 
-This repository has the following structure:
+The repository has the following structure:
 
 ```
 .
@@ -55,9 +55,7 @@ This repository has the following structure:
 
 ## How to use
 
-The following guideline explain step-by-step how to set up the project. 
-
-Note: it is assumed that all exercises/tasks from the labs were finished. Therefore, if this is not the case, please do this first.
+The following guidelines explain how to set up the project step-by-step. It is assumed that labs 0 to 5 were finished. If this is not the case, please do this first.
 
 STEP 1: Go to Google Cloud > Artifact Registry.
 
@@ -132,13 +130,15 @@ bash upload_training_data.bash <github-user-name> <github-token>
 
 STEP 8: Go to Cloud Build > History.
 
-This should display the running pipeline.
+This should display that the building/running of the pipeline is in progress.
 
 STEP 9: Go to Vertex AI > Pipelines.
 
 STEP 10: Click on the running pipeline to view its progress.
 
-STEP 11: When the pipeline is finished, go back to Cloud Build > History. This should now display the building of prediction-API and prediction-UI.
+STEP 11: When the pipeline is finished, go back to Cloud Build > History. 
+
+This should now display the building of the prediction-API and prediction-UI.
 
 STEP 12: When the building of prediction-API and prediction-UI is finished, go to Cloud Run.
 
@@ -157,9 +157,9 @@ STEP 18: Browse <prediction-ui-url>/checkinsurance
 
 STEP 19: Enter values and click on 'submit'.
 
-This should redirect the user to a response page displaying the predict insurance costs.
+This should redirect you to a response page displaying the predicted insurance costs.
 
-The guidelines above only use a subset of the created triggers. The remainder of the triggers can be tested by changing the content of the prediction-api, prediction-ui, training-pipeline/pipeline_executor or training-pipeline/components in the github repository.
+The guidelines above only use a subset of the created triggers. The remainder of the triggers can be tested by changing the content of the prediction-api, prediction-ui, training-pipeline/pipeline_executor or training-pipeline/components in the github repository. Since this has been tested already, please don't do this now (as it might break the project).
 
 ## Docker Cheatsheet (this was used during development)
 View the log of a container
