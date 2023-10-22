@@ -1,0 +1,7 @@
+{
+    "project_id": "your-project-id",
+    "data_bucket": "your-data-bucket",
+    "dataset_filename": "train_data.json", 
+    "model_repo": "your-model-bucket",
+    "git_repo": "github.com/QuintineSol/DataEngineering.git"
+  }
