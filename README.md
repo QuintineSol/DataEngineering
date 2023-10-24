@@ -73,13 +73,15 @@ STEP 7: Upload your version of the parameters-insurance-pipeline.json file to yo
 
 STEP 8: Go to Cloud Build > Triggers.
 
-STEP 9: Create the following CI/CD triggers.
+STEP 9: Go to github and create fork of our shared repository.
+
+STEP 10: Create the following CI/CD triggers.
 
 1. Prediction-API
 - Name: build-prediction-api
 - Region: us-central1
 - Event: push to a branch
-- Repository: QuintineSol/DataEngineering
+- Repository: your-forked-repository
 - Branch: main
 - Included files filter (glob): prediction-api/**   and   synchronizer/model_upload.txt
 - Type: Cloud Build configuration file (yaml or json)
@@ -95,7 +97,7 @@ STEP 9: Create the following CI/CD triggers.
 - Name: build-prediction-ui
 - Region: us-central1
 - Event: push to a branch
-- Repository: QuintineSol/DataEngineering
+- Repository: your-forked-repository
 - Branch: main
 - Included files filter (glob): prediction-ui/**   and   synchronizer/model_upload.txt
 - Type: Cloud Build configuration file (yaml or json)
@@ -108,7 +110,7 @@ STEP 9: Create the following CI/CD triggers.
 - Name: build-pipeline-executor
 - Region: us-central1
 - Event: push to a branch
-- Repository: QuintineSol/DataEngineering
+- Repository: your-forked-repository
 - Branch: main
 - Included files filter (glob): training-pipeline/pipeline_executor/**
 - Type: Cloud Build configuration file (yaml or json)
@@ -121,7 +123,7 @@ STEP 9: Create the following CI/CD triggers.
 - Name: execute-pipeline
 - Region: us-central1
 - Event: push to a branch
-- Repository: QuintineSol/DataEngineering
+- Repository: your-forked-repository
 - Branch: main
 - Included files filter (glob): synchronizer/data_upload.txt     and     training-pipeline/components/**
 - Type: Cloud Build configuration file (yaml or json)
@@ -134,45 +136,55 @@ STEP 9: Create the following CI/CD triggers.
 - Variable 1: _LOCATION      Value 1: us-central1
 - Variable 2: _REPOSITORY    Value 2: assignment1
 
-STEP 10: Run the pipeline executor trigger (trigger 3 in the step above).
+STEP 11: Run the pipeline executor trigger (trigger 3 in the step above).
 
-STEP 11: Open a Google Cloud Shell.
+STEP 12: Open a Google Cloud Shell.
 
-STEP 12: Enter the following commands
+STEP 13: 
+Option 1: 
+1. Enter the following commands
 ```bash
-git clone https://github.com/QuintineSol/DataEngineering.git
+git clone <your-forked-repo>
 cd DataEngineering/synchronizer
+```
+2. Adapt the bash script to contain the correct bucket names and repo names.
+3. Enter the following command
+```bash
 bash upload_training_data.bash <github-user-name> <github-token>
 ```
 
-STEP 13: Go to Cloud Build > History.
+Option 2: 
+1. Upload the train_data.json file in the github repo (under 'data') to your data bucket yourself
+2. Run trigger 4 manually
+
+STEP 14: Go to Cloud Build > History.
 
 This should display that the building/running of the pipeline is in progress.
 
-STEP 14: Go to Vertex AI > Pipelines.
+STEP 15: Go to Vertex AI > Pipelines.
 
-STEP 15: Click on the running pipeline to view its progress.
+STEP 16: Click on the running pipeline to view its progress.
 
-STEP 16: When the pipeline is finished, go back to Cloud Build > History. 
+STEP 17: When the pipeline is finished, go back to Cloud Build > History. 
 
 This should now display the building of the prediction-API and prediction-UI.
 
-STEP 17: When the building of prediction-API and prediction-UI is finished, go to Cloud Run.
+STEP 18: When the building of prediction-API and prediction-UI is finished, go to Cloud Run.
 
-STEP 18: Click on prediction-api and copy the URL at the top.
+STEP 19: Click on prediction-api and copy the URL at the top.
 
-STEP 19: Go back to prediction-ui and click on 'edit'.
+STEP 20: Go back to prediction-ui and click on 'edit'.
 
-STEP 20: Under Environment Variables
+STEP 21: Under Environment Variables
 - provide as value 1: <prediction-api-url>/insurance_predictor/
 
-STEP 21: Go to the bottom and click on 'deploy'.
+STEP 22: Go to the bottom and click on 'deploy'.
 
-STEP 22: Go to prediction-ui and copy the URL at the top.
+STEP 23: Go to prediction-ui and copy the URL at the top.
 
-STEP 23: Browse <prediction-ui-url>/checkinsurance
+STEP 24: Browse <prediction-ui-url>/checkinsurance
 
-STEP 24: Enter values and click on 'submit'.
+STEP 25: Enter values and click on 'submit'.
 
 This should redirect you to a response page displaying the predicted insurance costs.
 
