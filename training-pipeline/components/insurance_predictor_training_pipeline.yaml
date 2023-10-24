@@ -716,7 +716,7 @@ deploymentSpec:
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.3.0'\
           \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'pandas' 'scikit-learn'\
+          \  python3 -m pip install --quiet --no-warn-script-location 'pandas' 'scikit-learn==1.2.2'\
           \ 'tensorflow' 'h5py' && \"$0\" \"$@\"\n"
         - sh
         - -ec
@@ -731,7 +731,7 @@ deploymentSpec:
         - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
           \ *\n\ndef train_gr (X_train: Input[Dataset], Y_train: Input[Dataset], X_test:\
           \ Input[Dataset], Y_test: Input[Dataset], out_model: Output[Model]) -> NamedTuple('outputs',\
-          \ metrics=dict):\n    '''train a MLP with default parameters'''\n    import\
+          \ metrics=dict):\n    '''train a GBR with default parameters'''\n    import\
           \ pandas as pd\n    from sklearn.ensemble import GradientBoostingRegressor\n\
           \    from sklearn import metrics\n    import json\n    import logging \n\
           \    import sys\n    import os\n    import pickle\n\n    logging.basicConfig(stream=sys.stdout,\
@@ -739,17 +739,15 @@ deploymentSpec:
           .json\") \n    df_y_train = pd.read_json(Y_train.path + \".json\")     \n\
           \    df_x_test = pd.read_json(X_test.path + \".json\") \n    df_y_test =\
           \ pd.read_json(Y_test.path + \".json\")\n\n    # define model\n    model_gr\
-          \ = GradientBoostingRegressor()\n\n    logging.info(df_x_train.shape, df_y_train.shape,\
-          \ df_x_test.shape, df_y_test.shape)\n\n    # Fit the model\n    model_gr.fit(df_x_train,\
+          \ = GradientBoostingRegressor()\n\n    # Fit the model\n    model_gr.fit(df_x_train,\
           \ df_y_train)\n\n    y_pred = model_gr.predict(df_x_test)\n    # evaluate\
           \ the model\n    scores_1 = metrics.r2_score(df_y_test, y_pred)\n    scores_2\
           \ = metrics.mean_absolute_error(df_y_test, y_pred)\n    metrics_dict = {\n\
           \        \"R^2\": scores_1,\n        \"Mean absolute error\": scores_2\n\
-          \    }\n\n    logging.info(metrics_dict)  \n\n    out_model.metadata[\"\
-          algo\"] = \"gr\"\n\n    # Save the model\n    m_file = out_model.path\n\
-          \    with open(m_file, 'wb') as file:  \n        pickle.dump(model_gr, file)\n\
-          \    outputs = NamedTuple('outputs', metrics=dict)\n    return outputs(metrics_dict)\n\
-          \n"
+          \    }\n\n    logging.info(metrics_dict)  \n\n    # Save the model\n   \
+          \ m_file = out_model.path\n    with open(m_file, 'wb') as file:  \n    \
+          \    pickle.dump(model_gr, file)\n    outputs = NamedTuple('outputs', metrics=dict)\n\
+          \    return outputs(metrics_dict)\n\n"
         image: python:3.10.7-slim
     exec-train-lr:
       container:
@@ -765,7 +763,7 @@ deploymentSpec:
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.3.0'\
           \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'pandas' 'scikit-learn'\
+          \  python3 -m pip install --quiet --no-warn-script-location 'pandas' 'scikit-learn==1.2.2'\
           \ 'tensorflow' 'h5py' && \"$0\" \"$@\"\n"
         - sh
         - -ec
@@ -780,7 +778,7 @@ deploymentSpec:
         - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
           \ *\n\ndef train_lr (X_train: Input[Dataset], Y_train: Input[Dataset], X_test:\
           \ Input[Dataset], Y_test: Input[Dataset], out_model: Output[Model]) -> NamedTuple('outputs',\
-          \ metrics=dict):\n    '''train a MLP with default parameters'''\n    import\
+          \ metrics=dict):\n    '''train a LR with default parameters'''\n    import\
           \ pandas as pd\n    from sklearn.linear_model import LinearRegression\n\
           \    from sklearn import metrics\n    import json\n    import logging \n\
           \    import sys\n    import os\n    import pickle\n\n    logging.basicConfig(stream=sys.stdout,\
@@ -788,17 +786,15 @@ deploymentSpec:
           .json\") \n    df_y_train = pd.read_json(Y_train.path + \".json\")     \n\
           \    df_x_test = pd.read_json(X_test.path + \".json\") \n    df_y_test =\
           \ pd.read_json(Y_test.path + \".json\")\n\n    # define model\n    model_lr\
-          \ = LinearRegression()\n\n    logging.info(df_x_train.shape, df_y_train.shape,\
-          \ df_x_test.shape, df_y_test.shape)\n\n    # Fit the model\n    model_lr.fit(df_x_train,\
+          \ = LinearRegression()\n\n    # Fit the model\n    model_lr.fit(df_x_train,\
           \ df_y_train)\n\n    y_pred = model_lr.predict(df_x_test)\n    # evaluate\
           \ the model\n    scores_1 = metrics.r2_score(df_y_test, y_pred)\n    scores_2\
           \ = metrics.mean_absolute_error(df_y_test, y_pred)\n    metrics_dict = {\n\
           \        \"R^2\": scores_1,\n        \"Mean absolute error\": scores_2\n\
-          \    }\n\n    logging.info(metrics_dict)  \n\n    out_model.metadata[\"\
-          algo\"] = \"lr\"\n\n    # Save the model\n    m_file = out_model.path\n\
-          \    with open(m_file, 'wb') as file:  \n        pickle.dump(model_lr, file)\n\
-          \    outputs = NamedTuple('outputs', metrics=dict)\n    return outputs(metrics_dict)\
-          \     \n\n"
+          \    }\n\n    logging.info(metrics_dict)  \n\n    # Save the model\n   \
+          \ m_file = out_model.path\n    with open(m_file, 'wb') as file:  \n    \
+          \    pickle.dump(model_lr, file)\n    outputs = NamedTuple('outputs', metrics=dict)\n\
+          \    return outputs(metrics_dict)     \n\n"
         image: python:3.10.7-slim
     exec-train-rf:
       container:
@@ -814,7 +810,7 @@ deploymentSpec:
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.3.0'\
           \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'pandas' 'scikit-learn'\
+          \  python3 -m pip install --quiet --no-warn-script-location 'pandas' 'scikit-learn==1.2.2'\
           \ 'tensorflow' 'h5py' && \"$0\" \"$@\"\n"
         - sh
         - -ec
@@ -829,25 +825,23 @@ deploymentSpec:
         - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
           \ *\n\ndef train_rf (X_train: Input[Dataset], Y_train: Input[Dataset], X_test:\
           \ Input[Dataset], Y_test: Input[Dataset], out_model: Output[Model]) -> NamedTuple('outputs',\
-          \ metrics=dict):\n    '''train a MLP with default parameters'''\n    import\
+          \ metrics=dict):\n    '''train a RFR with default parameters'''\n    import\
           \ pandas as pd\n    from sklearn.ensemble import RandomForestRegressor\n\
           \    from sklearn import metrics\n    import json\n    import logging \n\
-          \    import sys\n    import os\n    import pickle\n\n    logging.basicConfig(stream=sys.stdout,\
+          \    import sys\n    import os\n    import pickle  \n\n    logging.basicConfig(stream=sys.stdout,\
           \ level=logging.INFO)\n\n    df_x_train = pd.read_json(X_train.path + \"\
           .json\") \n    df_y_train = pd.read_json(Y_train.path + \".json\")     \n\
           \    df_x_test = pd.read_json(X_test.path + \".json\") \n    df_y_test =\
           \ pd.read_json(Y_test.path + \".json\")\n\n    # define model\n    model_rf\
-          \ = RandomForestRegressor()\n\n    logging.info(df_x_train.shape, df_y_train.shape,\
-          \ df_x_test.shape, df_y_test.shape)\n\n    # Fit the model\n    model_rf.fit(df_x_train,\
+          \ = RandomForestRegressor()\n\n    # Fit the model\n    model_rf.fit(df_x_train,\
           \ df_y_train)\n\n    y_pred = model_rf.predict(df_x_test)\n    # evaluate\
           \ the model\n    scores_1 = metrics.r2_score(df_y_test, y_pred)\n    scores_2\
           \ = metrics.mean_absolute_error(df_y_test, y_pred)\n    metrics_dict = {\n\
           \        \"R^2\": scores_1,\n        \"Mean absolute error\": scores_2\n\
-          \    }\n\n    logging.info(metrics_dict)  \n\n    out_model.metadata[\"\
-          algo\"] = \"rf\"\n\n    # Save the model\n    m_file = out_model.path\n\
-          \    with open(m_file, 'wb') as file:  \n        pickle.dump(model_rf, file)\n\
-          \    outputs = NamedTuple('outputs', metrics=dict)\n    return outputs(metrics_dict)\n\
-          \n"
+          \    }\n\n    logging.info(metrics_dict)  \n\n    # Save the model\n   \
+          \ m_file = out_model.path\n    with open(m_file, 'wb') as file:  \n    \
+          \    pickle.dump(model_rf, file)\n    outputs = NamedTuple('outputs', metrics=dict)\n\
+          \    return outputs(metrics_dict)\n\n"
         image: python:3.10.7-slim
     exec-train-test-split:
       container:
@@ -863,7 +857,7 @@ deploymentSpec:
           \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
           \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.3.0'\
           \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
-          \  python3 -m pip install --quiet --no-warn-script-location 'pandas' 'scikit-learn'\
+          \  python3 -m pip install --quiet --no-warn-script-location 'pandas' 'scikit-learn==1.2.2'\
           \ && \"$0\" \"$@\"\n"
         - sh
         - -ec
@@ -881,13 +875,15 @@ deploymentSpec:
           \    '''train_test_split'''\n    import pandas as pd\n    import logging\
           \ \n    import sys\n    from sklearn.model_selection import train_test_split\n\
           \n    logging.basicConfig(stream=sys.stdout, level=logging.INFO)\n\n   \
-          \ data = pd.read_json(dataset.path + \".json\", orient='records')\n    data_values\
-          \ = data.values\n\n    X = data_values[:, 0:6]\n    Y = data_values[:, 6]\n\
-          \n    x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2,\
-          \ random_state=42)\n\n    logging.info(x_train.shape, y_train.shape, x_test.shape,\
-          \ y_test.shape)\n\n    pd.DataFrame(x_train).to_json(X_train.path + '.json')\n\
-          \    pd.DataFrame(x_test).to_json(X_test.path + '.json')\n    pd.DataFrame(y_train).to_json(Y_train.path\
-          \ + '.json')\n    pd.DataFrame(y_test).to_json(Y_test.path + '.json')\n\n"
+          \ data = pd.read_json(dataset.path + \".json\", orient='records')\n\n  \
+          \  logging.info(data.head())\n\n    data_values = data.values\n\n    X =\
+          \ data_values[:, 0:6]\n    Y = data_values[:, 6]\n\n    x_train, x_test,\
+          \ y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=42)\n\
+          \n    pd.DataFrame(x_train).to_json(X_train.path + '.json', orient='records')\n\
+          \    pd.DataFrame(x_test).to_json(X_test.path + '.json', orient='records')\n\
+          \    pd.DataFrame(y_train).to_json(Y_train.path + '.json', orient='records')\n\
+          \    pd.DataFrame(y_test).to_json(Y_test.path + '.json', orient='records')\n\
+          \n"
         image: python:3.10.7-slim
     exec-upload-model-to-gcs:
       container:
