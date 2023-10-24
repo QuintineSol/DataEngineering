@@ -45,6 +45,7 @@ The repository has the following structure:
 └── training-pipeline
     ├── components
     │   ├── insurance_predictor_training_pipeline.yaml
+    │   ├── parameters-insurance-pipeline.json
     │   ├── pipeline.ipynb
     │   └── training-pipeline.png
     └── pipeline_executor
