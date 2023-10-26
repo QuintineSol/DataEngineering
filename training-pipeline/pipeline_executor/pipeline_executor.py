@@ -34,4 +34,3 @@ def parse_command_line_arguments():
 if __name__ == '__main__':
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     run_pipeline_job(**parse_command_line_arguments())
-# testing CI/CD trigger
